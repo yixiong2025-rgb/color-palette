@@ -5,10 +5,10 @@
 <title>風格收藏｜色票總覽</title>
 <style>
   :root {
-    --bg: #303030;
-    --bg-card: #3a3a3a;
-    --bg-card-hover: #424242;
-    --border: #525252;
+    --bg: #0f0f0f;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #222222;
+    --border: #2a2a2a;
     --text: #f0f0f0;
     --text-dim: #888;
     --text-mute: #555;
@@ -207,7 +207,7 @@
     max-width: 1320px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 
@@ -923,17 +923,21 @@ document.querySelectorAll(".quick-links a[data-path]").forEach(a => {
 });
 
 // === lightbox ===
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-document.addEventListener("click", e => {
-  const img = e.target.closest(".thumb-wrap")?.querySelector(".thumb-img");
-  if (img && img.complete && img.naturalWidth > 0) {
-    lightboxImg.src = img.src;
-    lightbox.classList.add("open");
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  document.addEventListener("click", e => {
+    const wrap = e.target.closest(".thumb-wrap");
+    if (!wrap) return;
+    const img = wrap.querySelector(".thumb-img");
+    if (img && img.naturalWidth > 0) {
+      lightboxImg.src = img.src;
+      lightbox.classList.add("open");
+    }
+  });
+  lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") lightbox.classList.remove("open"); });
 });
-lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
-document.addEventListener("keydown", e => { if (e.key === "Escape") lightbox.classList.remove("open"); });
 
 // === filter logic ===
 const filters = document.querySelectorAll(".chip");
