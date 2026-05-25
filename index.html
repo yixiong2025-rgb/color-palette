@@ -430,6 +430,12 @@
   }
   .detail .row { margin-bottom: 5px; }
   .detail .row b { color: #aaa; font-weight: 500; }
+  .detail .row .clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
   /* === toast === */
   .toast {
@@ -881,7 +887,7 @@ data.forEach(item => {
         ${item.cookbook ? `<span class="btn cookbook-btn" data-case="${item.cookbook}">📓 Cookbook 案例 ${String(item.cookbook).padStart(2,'0')}</span>` : ''}
       </div>
       <div class="detail">
-        <div class="row"><b>用途：</b>${item.use}</div>
+        <div class="row"><b>用途：</b><span class="clamp">${item.use}</span></div>
         <div class="row"><b>備註：</b>${item.note}</div>
       </div>
     </div>
