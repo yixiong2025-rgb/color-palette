@@ -467,13 +467,6 @@
     <span>💡 風格 ｜ 🧩 元件 ｜ 🌐 Landing</span>
     <span style="color:#666">點色塊複製 HEX</span>
   </div>
-  <div class="quick-links">
-    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/README.md">📚 AI 生圖完整方法論</a>
-    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/04_好萊塢運鏡與燈光術語庫_Cinematography_Dict.md">🎬 運鏡 / 燈光術語</a>
-    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/03_角色一致性_Character_Consistency.md">🎭 角色一致性</a>
-    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/02_劇本轉譯器_Story_to_Prompt.md">✏️ 劇本轉 Prompt</a>
-    <span style="color:#666;font-size:11px;align-self:center">↑ 點擊複製路徑，到 Finder 按 ⌘⇧G 貼上跳轉（Safari 沙箱限制）</span>
-  </div>
   </div>
 </header>
 
@@ -881,11 +874,8 @@ function copyPalette(el, hexArr) {
 // === cookbook button: copy file path ===
 document.querySelectorAll(".cookbook-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const path = "/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/08_生成圖片_Prompt_案例庫.md";
-    navigator.clipboard.writeText(path).then(() => {
-      const caseNum = String(btn.dataset.case).padStart(2,'0');
-      showToast(`已複製 Cookbook 路徑　→ Antigravity 按 ⌘P 貼上 → 搜「案例 ${caseNum}」`);
-    });
+    const caseNum = String(btn.dataset.case).padStart(2,'0');
+    showToast(`案例 ${caseNum}`);
   });
 });
 
