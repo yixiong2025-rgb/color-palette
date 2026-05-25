@@ -411,6 +411,10 @@
   .btn:hover { color: #fff; border-color: #555; background: #1a1a1a; }
   .btn.disabled { opacity: 0.4; cursor: not-allowed; }
   .btn.primary { color: #ddd; border-color: #444; }
+  .btn.copy-palette { background: #1e1e2e; border-color: #4a4a7a; color: #c4a8ff; }
+  .btn.copy-palette:hover { background: #2a2a40; border-color: #c4a8ff; color: #fff; }
+  .btn.url-icon { font-size: 18px; flex: 0 0 40px; padding: 7px 0; }
+  .btn.url-icon.disabled { opacity: 0.25; cursor: not-allowed; }
 
   /* === detail expand on hover === */
   .detail {
@@ -843,8 +847,8 @@ data.forEach(item => {
 
   const swatchCols = item.colors.length === 3 ? "cols-3" : "";
   const urlBtn = item.url
-    ? `<a href="${item.url}" target="_blank" class="btn primary">↗ 看原作品</a>`
-    : `<span class="btn disabled">尚無連結</span>`;
+    ? `<a href="${item.url}" target="_blank" class="btn url-icon" title="看原作品">↗</a>`
+    : `<span class="btn url-icon disabled" title="尚無連結">🔗</span>`;
 
   card.innerHTML = `
     <div class="thumb-wrap">
@@ -884,7 +888,7 @@ data.forEach(item => {
       </div>
       <div class="actions">
         ${urlBtn}
-        <span class="btn" onclick="copyPalette(this, ${JSON.stringify(item.colors.map(c=>c[2])).replace(/"/g,'&quot;')})">複製整組</span>
+        <span class="btn copy-palette" onclick="copyPalette(this, ${JSON.stringify(item.colors.map(c=>c[2])).replace(/"/g,'&quot;')})">複製</span>
         ${item.cookbook ? `<span class="btn cookbook-btn" data-case="${item.cookbook}">📓 Cookbook 案例 ${String(item.cookbook).padStart(2,'0')}</span>` : ''}
       </div>
       <div class="detail">
