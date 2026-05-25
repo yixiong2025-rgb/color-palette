@@ -173,13 +173,18 @@
   }
   .keywords b { color: #d4a847; }
   .keywords code {
-    background: #1a1a1a;
-    padding: 1px 6px;
-    border-radius: 3px;
-    color: #ddd;
+    background: rgba(220,60,60,0.12);
+    border: 1px solid rgba(220,60,60,0.35);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #f4a0a0;
     font-size: 10.5px;
-    margin: 0 2px;
+    margin: 2px 2px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.15s;
   }
+  .keywords code:hover { background: rgba(220,60,60,0.25); }
 
   /* === filter bar === */
   .filters {
@@ -531,7 +536,7 @@
           <div class="item future"><span class="name">影片剪輯展示（待構思）</span><span class="status">未定</span></div>
         </div>
         <div class="keywords">
-          <b>下次刷的關鍵字</b>：<code>presentation deck dark</code> <code>agenda slide minimal</code> <code>quote slide design</code> <code>thank you slide</code> <code>pitch deck closing</code>
+          <b>關鍵字</b>：<code>presentation deck dark</code> <code>agenda slide minimal</code> <code>quote slide design</code> <code>thank you slide</code> <code>pitch deck closing</code>
         </div>
       </div>
 
@@ -567,7 +572,7 @@
         </div>
 
         <div class="keywords">
-          <b>下次刷的關鍵字（按優先序）</b>：<br>
+          <b>關鍵字（按優先序）</b>：<br>
           1. 健身大缺口 → <code>fitness coach website</code> <code>personal trainer landing</code> <code>gym dark hero</code> <code>workout app landing</code><br>
           2. AI 主題 → <code>AI tool landing page</code> <code>SaaS dashboard hero</code> <code>chatbot landing dark</code> <code>data visualization landing</code><br>
           3. 動態 / 互動 → <code>scroll animation landing</code> <code>spline 3d landing</code> <code>parallax hero</code><br>
@@ -594,7 +599,7 @@
           <div class="item future"><span class="name">Testimonial 客戶見證</span><span class="status">暫緩</span></div>
         </div>
         <div class="keywords">
-          <b>下次刷的關鍵字</b>：<code>personal portfolio about page</code> <code>blog index dark</code> <code>contact form minimal</code> <code>footer design</code> <code>case study layout</code> <code>FAQ accordion</code> <code>ebook landing page</code> <code>press logo wall</code>
+          <b>關鍵字</b>：<code>personal portfolio about page</code> <code>blog index dark</code> <code>contact form minimal</code> <code>footer design</code> <code>case study layout</code> <code>FAQ accordion</code> <code>ebook landing page</code> <code>press logo wall</code>
         </div>
       </div>
 
@@ -942,6 +947,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
   document.addEventListener("keydown", e => { if (e.key === "Escape") lightbox.classList.remove("open"); });
+});
+
+// === keyword copy ===
+document.querySelectorAll(".keywords code").forEach(el => {
+  el.addEventListener("click", () => {
+    navigator.clipboard.writeText(el.textContent.trim()).then(() => showToast(`已複製：${el.textContent.trim()}`));
+  });
 });
 
 // === filter logic ===
