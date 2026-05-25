@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>風格收藏｜色票總覽</title>
+<base href="file:///Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025%40gmail.com/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F/Antigravity_VibeProject/JinOS/50_Resources/Design_Reference/">
+<style>
+  :root {
+    --bg: #303030;
+    --bg-card: #3a3a3a;
+    --bg-card-hover: #424242;
+    --border: #525252;
+    --text: #f0f0f0;
+    --text-dim: #888;
+    --text-mute: #555;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", "Inter", sans-serif;
+    padding: 48px 40px 80px;
+    line-height: 1.5;
+  }
+  header {
+    max-width: 1320px;
+    margin: 0 auto 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  header .meta {
+    font-size: 12px;
+    color: var(--text-mute);
+  }
+  header .legend {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  header .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  header .legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  header .quick-links {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  header .quick-links a {
+    font-size: 12px;
+    color: #aaa;
+    text-decoration: none;
+    padding: 5px 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 14px;
+    transition: all 0.2s;
+  }
+  header .quick-links a:hover { color: #fff; border-color: #555; background: #2a2a2a; }
+
+  /* === procurement checklist === */
+  .checklist {
+    max-width: 1320px;
+    margin: 0 auto 32px;
+    background: linear-gradient(180deg, #131313, #0f0f0f);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .checklist-head {
+    padding: 14px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .checklist-head:hover { background: #181818; }
+  .checklist-title { font-size: 14px; font-weight: 600; color: #ddd; }
+  .checklist-title .badge-tag {
+    background: #2a1a1a; color: #ff8a8a; font-size: 11px;
+    padding: 2px 8px; border-radius: 10px; margin-left: 8px;
+  }
+  .checklist-arrow { color: #666; transition: transform 0.25s; }
+  .checklist.open .checklist-arrow { transform: rotate(180deg); }
+  .checklist-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .checklist.open .checklist-body { max-height: 2200px; }
+  .checklist-inner { padding: 0 20px 20px; }
+
+  .group {
+    margin-bottom: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #1f1f1f;
+  }
+  .group:first-child { border-top: 0; padding-top: 6px; }
+  .group h3 {
+    font-size: 13px;
+    color: #eaeaea;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .group .group-sub {
+    font-size: 11px;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+  }
+  .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 6px;
+  }
+  .item {
+    font-size: 12px;
+    padding: 7px 11px;
+    background: #0a0a0a;
+    border: 1px solid #1c1c1c;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .item .name { color: #ccc; }
+  .item .status { font-size: 10px; font-family: "SF Mono", monospace; }
+  .item.have { border-color: #1a3a1a; background: #0c1410; }
+  .item.have .status { color: #6cd86c; }
+  .item.miss { border-color: #3a1a1a; background: #140c0c; }
+  .item.miss .status { color: #ff8a8a; }
+  .item.future { border-color: #3a2e1a; background: #14110c; }
+  .item.future .status { color: #e0c078; }
+
+  .subgroup-title {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin: 10px 0 6px;
+    padding-left: 4px;
+    letter-spacing: 1px;
+  }
+  .keywords {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #0a0a0a;
+    border-left: 2px solid #d4a847;
+    border-radius: 0 6px 6px 0;
+    font-size: 11px;
+    color: #bbb;
+  }
+  .keywords b { color: #d4a847; }
+  .keywords code {
+    background: #1a1a1a;
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: #ddd;
+    font-size: 10.5px;
+    margin: 0 2px;
+  }
+
+  /* === filter bar === */
+  .filters {
+    max-width: 1320px;
+    margin: 0 auto 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #111;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .chip:hover { color: #ddd; border-color: #444; }
+  .chip.active { background: #ddd; color: #111; border-color: #ddd; }
+
+  /* === grid === */
+  .grid {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: #3a3a3a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  /* === thumbnail === */
+  .thumb-wrap {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  .thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .card:hover .thumb-img { transform: scale(1.04); }
+  .thumb-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgba(255,255,255,0.75);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    padding: 16px;
+    text-align: center;
+  }
+  .thumb-fallback .fb-name {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .thumb-fallback .fb-hint {
+    font-size: 10px;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+  }
+  .thumb-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+  }
+  .badge {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #eee;
+  }
+  .badge.love { color: #ff8a8a; border-color: rgba(255,138,138,0.3); }
+  .badge.ref { color: #e0c078; border-color: rgba(224,192,120,0.3); }
+  .badge.backup { color: #bbb; }
+  .badge.cookbook { color: #c4a8ff; border-color: rgba(196,168,255,0.4); background: rgba(76,40,140,0.5); }
+  .btn.cookbook-btn { color: #c4a8ff; border-color: rgba(196,168,255,0.4); background: rgba(40,20,70,0.6); }
+  .btn.cookbook-btn:hover { color: #fff; border-color: #c4a8ff; background: rgba(76,40,140,0.6); }
+  .thumb-num {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    font-family: "SF Mono", monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+    letter-spacing: 1px;
+    z-index: 2;
+  }
+
+  /* === body === */
+  .card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f0f0f0;
+    letter-spacing: 0.5px;
+  }
+  .card-source {
+    font-size: 11px;
+    color: var(--text-mute);
+    font-family: "SF Mono", monospace;
+  }
+
+  /* === WHY block — the centerpiece === */
+  .why {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border-left: 2px solid #ff8a8a;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border-radius: 0 6px 6px 0;
+  }
+  .why.ref { border-left-color: #e0c078; }
+  .why.backup { border-left-color: #666; }
+  .why-label {
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .why-text {
+    font-size: 13px;
+    color: #e0e0e0;
+    line-height: 1.55;
+  }
+
+  /* === swatches === */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .swatches.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .swatch {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .swatch:hover { transform: scale(1.06); }
+  .swatch .block {
+    height: 36px;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 3px;
+  }
+  .swatch .cn {
+    font-size: 10px;
+    color: #aaa;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .swatch .hex {
+    font-family: "SF Mono", monospace;
+    font-size: 9px;
+    color: var(--text-mute);
+    letter-spacing: 0.5px;
+  }
+  .swatch.copied .hex { color: #6cd86c; }
+
+  /* === actions === */
+  .actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #0e0e0e;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn:hover { color: #fff; border-color: #555; background: #1a1a1a; }
+  .btn.disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn.primary { color: #ddd; border-color: #444; }
+
+  /* === detail expand on hover === */
+  .detail {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s, opacity 0.25s, margin 0.25s, padding 0.25s;
+    font-size: 11px;
+    color: var(--text-dim);
+    border-top: 1px dashed transparent;
+  }
+  .card:hover .detail {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top-color: #222;
+  }
+  .detail .row { margin-bottom: 5px; }
+  .detail .row b { color: #aaa; font-weight: 500; }
+
+  /* === toast === */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #ddd;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    font-family: "SF Mono", monospace;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    max-width: 1320px;
+    margin: 60px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-mute);
+    line-height: 1.8;
+  }
+  footer h3 { font-size: 13px; color: #999; margin-bottom: 8px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>風格收藏｜色票總覽</h1>
+  <div class="meta">2026-05-20 建立　｜　<span id="count">—</span> 個作品　｜　縮圖放 <code style="color:#888">thumbnails/NN.jpg</code> 自動載入</div>
+  <div class="legend">
+    <span><span class="dot" style="background:#ff8a8a"></span> ❤️ 心動</span>
+    <span><span class="dot" style="background:#e0c078"></span> 可參考</span>
+    <span><span class="dot" style="background:#999"></span> 備用</span>
+    <span>💡 風格 ｜ 🧩 元件 ｜ 🌐 Landing</span>
+    <span style="color:#666">點色塊複製 HEX</span>
+  </div>
+  <div class="quick-links">
+    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/README.md">📚 AI 生圖完整方法論</a>
+    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/04_好萊塢運鏡與燈光術語庫_Cinematography_Dict.md">🎬 運鏡 / 燈光術語</a>
+    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/03_角色一致性_Character_Consistency.md">🎭 角色一致性</a>
+    <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/02_劇本轉譯器_Story_to_Prompt.md">✏️ 劇本轉 Prompt</a>
+    <span style="color:#666;font-size:11px;align-self:center">↑ 點擊複製路徑，到 Finder 按 ⌘⇧G 貼上跳轉（Safari 沙箱限制）</span>
+  </div>
+</header>
+
+<!-- === 採購清單 === -->
+<div class="checklist" id="checklist">
+  <div class="checklist-head" onclick="document.getElementById('checklist').classList.toggle('open')">
+    <div class="checklist-title">📋 採購清單 — 我現在缺什麼？ <span class="badge-tag">點開看缺口</span></div>
+    <div class="checklist-arrow">▼</div>
+  </div>
+  <div class="checklist-body">
+    <div class="checklist-inner">
+
+      <!-- === A: Canva 簡報 === -->
+      <div class="group">
+        <h3>🎨 A：Canva 簡報（職訓局自我介紹，due 2026-07-20）</h3>
+        <div class="group-sub">「作品展示」直接用 B 與 C 的成品截圖；簡報是預告片，不重做素材</div>
+        <div class="items">
+          <div class="item have"><span class="name">封面 Cover</span><span class="status">#1 #3</span></div>
+          <div class="item miss"><span class="name">Agenda 大綱頁</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">About Me 自介</span><span class="status">缺</span></div>
+          <div class="item have"><span class="name">作品展示</span><span class="status">用 B/C 成品</span></div>
+          <div class="item have"><span class="name">技能展示</span><span class="status">#16 spell grid</span></div>
+          <div class="item miss"><span class="name">Quote 金句頁</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">未來規劃 / 目標</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Closing 感謝頁</span><span class="status">缺</span></div>
+          <div class="item future"><span class="name">影片剪輯展示（待構思）</span><span class="status">未定</span></div>
+        </div>
+        <div class="keywords">
+          <b>下次刷的關鍵字</b>：<code>presentation deck dark</code> <code>agenda slide minimal</code> <code>quote slide design</code> <code>thank you slide</code> <code>pitch deck closing</code>
+        </div>
+      </div>
+
+      <!-- === B: Landing Pages (3 versions) === -->
+      <div class="group">
+        <h3>🌐 B：Landing Page × 3 版本</h3>
+        <div class="group-sub">每版四件套：Hero / 作品列表 / 技能 / 短文。炫酷 + AI 為動態頁</div>
+
+        <div class="subgroup-title">🎮 B1 炫酷 Cyberpunk（動態）</div>
+        <div class="items">
+          <div class="item have"><span class="name">Hero 主視覺</span><span class="status">#10 #15</span></div>
+          <div class="item have"><span class="name">作品列表 grid</span><span class="status">#14</span></div>
+          <div class="item have"><span class="name">技能展示</span><span class="status">#13 hierarchy</span></div>
+          <div class="item have"><span class="name">短文 / Manifesto</span><span class="status">#11</span></div>
+          <div class="item miss"><span class="name">動態互動 / 動畫範例</span><span class="status">缺</span></div>
+        </div>
+
+        <div class="subgroup-title">💪 B2 健身（首發樣本進來了）</div>
+        <div class="items">
+          <div class="item future"><span class="name">Hero 主視覺</span><span class="status">🟡 #24 堪用待改</span></div>
+          <div class="item miss"><span class="name">作品列表 / 課程</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">技能 / 認證展示</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">短文 / 訓練哲學</span><span class="status">缺</span></div>
+        </div>
+
+        <div class="subgroup-title">🤖 B3 AI 主題（動態）</div>
+        <div class="items">
+          <div class="item have"><span class="name">Hero 主視覺</span><span class="status">#11 #15</span></div>
+          <div class="item miss"><span class="name">作品列表（AI tool）</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">技能 / AI 能力展示</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">短文 / Manifesto</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">動態元素 / dashboard</span><span class="status">缺</span></div>
+        </div>
+
+        <div class="keywords">
+          <b>下次刷的關鍵字（按優先序）</b>：<br>
+          1. 健身大缺口 → <code>fitness coach website</code> <code>personal trainer landing</code> <code>gym dark hero</code> <code>workout app landing</code><br>
+          2. AI 主題 → <code>AI tool landing page</code> <code>SaaS dashboard hero</code> <code>chatbot landing dark</code> <code>data visualization landing</code><br>
+          3. 動態 / 互動 → <code>scroll animation landing</code> <code>spline 3d landing</code> <code>parallax hero</code><br>
+          ⚠️ <b>不要再找 Cyberpunk 了</b>，已 5 張夠用
+        </div>
+      </div>
+
+      <!-- === C: 個人網站 === -->
+      <div class="group">
+        <h3>👤 C：個人網站（長期經營）</h3>
+        <div class="group-sub">已決定：核心 6 頁 + Footer / Case Study / FAQ / Press / Resume（電子書）。Testimonial 暫緩，無客戶</div>
+        <div class="items">
+          <div class="item have"><span class="name">首頁 Home（=Hero）</span><span class="status">#1 #3 #16</span></div>
+          <div class="item miss"><span class="name">About 詳細自介</span><span class="status">缺</span></div>
+          <div class="item have"><span class="name">作品集 Portfolio grid</span><span class="status">#6 #16</span></div>
+          <div class="item miss"><span class="name">Blog 文章列表</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">服務 Services</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Contact 聯絡頁</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Footer 完整版</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Case Study 作品深度頁</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">FAQ</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Press / 媒體 logo</span><span class="status">缺</span></div>
+          <div class="item miss"><span class="name">Resume = 練背電子書</span><span class="status">缺</span></div>
+          <div class="item future"><span class="name">Testimonial 客戶見證</span><span class="status">暫緩</span></div>
+        </div>
+        <div class="keywords">
+          <b>下次刷的關鍵字</b>：<code>personal portfolio about page</code> <code>blog index dark</code> <code>contact form minimal</code> <code>footer design</code> <code>case study layout</code> <code>FAQ accordion</code> <code>ebook landing page</code> <code>press logo wall</code>
+        </div>
+      </div>
+
+      <!-- === 總計 === -->
+      <div class="group">
+        <h3>📊 缺口統計</h3>
+        <div class="group-sub" style="line-height:1.8">
+          ✅ 已有對應收藏：<b style="color:#6cd86c">10 個區塊</b>
+          ⬜ 缺需要找：<b style="color:#ff8a8a">23 個區塊</b>
+          🕓 暫緩 / 未定：<b style="color:#e0c078">2 個</b><br>
+          → <b style="color:#ddd">最大缺口</b>：B2 健身 LP（4 區塊全缺）+ C 個人網站子頁（10 區塊缺）<br>
+          → <b style="color:#ddd">最完備</b>：B1 炫酷 Cyberpunk（4/5 已有），可以開工
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="filters" id="filters">
+  <div class="chip active" data-filter="all">全部</div>
+  <div class="chip" data-filter="love">❤️ 心動</div>
+  <div class="chip" data-filter="ref">可參考</div>
+  <div class="chip" data-filter="backup">備用</div>
+  <div class="chip" data-filter="💡 風格">💡 風格</div>
+  <div class="chip" data-filter="🧩 元件">🧩 元件</div>
+  <div class="chip" data-filter="🌐 Landing">🌐 Landing</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <h3>共通規律（❤️ 組 #1–#4）</h3>
+  深色底（黑 / 黑青 / 深紫）× 一個暖色強調（橘 / 白光）× 大標題 + 數字錨點 × 剋制不堆砌<br>
+  → 風格關鍵字：<b style="color:#ddd">黑色高端品牌感（蘋果 / Nike 發布頁路數）</b>
+  <h3 style="margin-top:20px">備用方向（Cyberpunk 組 #10–#13）</h3>
+  多色霓虹（青 + 紫 + 粉）× AI 虛擬角色 × 遊戲 UI 風格 → 可獨立做成「虛擬遊戲人物 Landing Page」單獨作品
+</footer>
+
+<div class="toast" id="toast">已複製</div>
+
+<script>
+const data = [
+  {
+    num: "13", name: "Elaxy Design", reaction: "ref", bucket: "🌐 Landing", source: "Pinterest", url: "",
+    why: "🌐 Cyberpunk 太空人 Hero + 小機器人吉祥物 + 3 段 Hierarchy 教學排版 — 完整 Landing 教科書，可借「太空人主視覺 + 機器人解說」這個 combo",
+    use: "Hero AI 生圖（太空人）+ 機器人元件當吉祥物；Hierarchy 三欄是教學頁排版範本",
+    note: "與 #11 Fantasy NFT 同 Cyberpunk 系；粉紫膠囊按鈕值得學",
+    colors: [["深紫黑","主底","#0A0118"],["青霓虹","強光/標題","#00E5FF"],["紫霓虹","漸層","#B040FF"],["霓虹粉","CTA","#FF1493"]]
+  },
+  {
+    num: "17", name: "Biopunk Aquatic", reaction: "backup", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/4R6cnFZL4", cookbook: 2,
+    why: "備存：螢光水母 + Midjourney 生物工程水族館 — 風格太獨特想收藏。整頁是 Midjourney AI 作品 + UX/UI 的 showcase，跟 B3 AI 主題 Landing 對口",
+    use: "AI 作品展示頁範本：Midjourney 生圖系列 → 套這個框架 → 「My AI Creations」showcase；角色卡（物種名+屬性）與 #16 Hogwarts 同結構",
+    note: "Glitch 電腦字（全大寫+像素感）是識別點。完整 prompt + 物種/配色變化見 40_Wiki/AI_靜態視覺/08_生成圖片_Prompt_案例庫.md#案例 02",
+    colors: [["純黑","外框底","#000000"],["深海黑藍","內框底","#060B1A"],["電藍","邊框/分隔線","#0D0DFF"],["桃粉霓虹","主視覺水母/魚","#FF2D8F"],["亮紫","卡片漸層","#9B30FF"],["冷青光","副生物螢光","#66BBE0"],["暖橘黃","BUY 按鈕/標題暖點","#FFD060"]]
+  },
+  {
+    num: "18", name: "NUAURA — Neon Light Trails", reaction: "love", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/1ahkBxogu", cookbook: 1,
+    why: "⭐⭐⭐⭐⭐ 超想做！女生 + 橘紅×青藍雙色霓虹光條纏身 + 極少文字 — 這就是「發光呼吸感 Landing」的藍圖",
+    use: "① AI 生圖：DALL-E 3 / Leonardo AI (neon light painting trails, cyan + orange, long exposure, black bg) ② CSS 呼吸動畫：filter brightness + drop-shadow 3s infinite；③ 採購清單 B1/B3 Landing Hero 直接對口",
+    note: "光繪攝影風格 + 雙色光條纏身 + 呼吸感動畫是核心。完整 prompt + 變化 + 三層動畫實作（CSS / 分層 PNG / AI 圖生影片）見 cookbook 案例 01 ⚡段",
+    colors: [["純黑","主底","#000000"],["橘紅霓虹","主光條（身體纏繞）","#FF4500"],["青藍霓虹","副光條（藍色細線）","#00E5FF"],["暖橘黃","鞋子產品高光","#FF8C20"],["暖膚色","人物反光","#FFB890"],["暗紅暈","地面光反射","#4A0E0A"],["灰黑","右側產品面板","#2A2A2A"]]
+  },
+  {
+    num: "19", name: "NFC — Non Fungible Culture", reaction: "ref", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/2T1Z5Js3e", cookbook: 4,
+    why: "🌐 AI Cyberpunk 角色 Landing — 自己揭露 prompt（Neon/Woman/Jacket/Techwear/Florescent/Futuristic）。可改進：人物再亮、底色更飽和、多加 1-2 色",
+    use: "雙欄 Landing 排版範本（左暗黑文字 + 右 AI 角色）；標籤雲式 Prompt 揭露是聰明的「展示 AI 工序」設計手法",
+    note: "面部青色電路紋身 + 多色霓虹是核心。完整 prompt（含原型 vs 改進版 + 配件/紋身光/背景變化）見 40_Wiki/AI_靜態視覺/08_生成圖片_Prompt_案例庫.md#案例 04",
+    colors: [["深黑紫","主底","#0A0612"],["青霓虹","面部電路紋身","#00E5D4"],["紫紅霓虹","頭髮高光","#C040FF"],["桃粉霓虹","服裝霓虹","#FF4A99"],["暖橘黃","背景城市光（唯一暖色）","#F5A623"],["深青暈","背景遠處青光霧","#1A3F4A"],["碳灰","Ai Prompts 標籤面板","#2A2A30"]]
+  },
+  {
+    num: "14", name: "NFT Marketplace", reaction: "backup", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/4NH3FKmPP",
+    why: "備存：這張圖一般，主要記錄「cc 第一次成功自動抓圖」的測試樣本（2026-05-20）",
+    use: "Landing 排版可參考：數字錨點 + 青綠 CTA + NFT 卡片 grid 三件套",
+    note: "與 #11 Fantasy NFT 同主題但更商業乾淨；firecrawl 不支援 Pinterest、改用 curl + og:image 抓 i.pinimg.com originals 成功",
+    colors: [["深紫藍","主底","#1A1448"],["漸層深","底部","#0A0820"],["青綠霓虹","CTA","#00E5C4"],["近白","文字","#F5F8FF"]]
+  },
+  {
+    num: "15", name: "VR Metaverse Landing", reaction: "ref", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/5Vs0VW7cc", cookbook: 3,
+    why: "🌐 Cyberpunk 底色配方很好用（深紫 + 桃粉霓虹 + 青藍）— 想學底部 VR 女生那種雙色霓虹打光的 AI 生圖手法",
+    use: "Landing 底色直接套；AI prompt 範本見 note，可生「戴 VR / 戴耳機 / 戴墨鏡」等系列人像",
+    note: "雙色 rim light 是核心。完整 prompt + 配件/打光/構圖變化見 40_Wiki/AI_靜態視覺/08_生成圖片_Prompt_案例庫.md#案例 03",
+    colors: [["深紫底","Hero 主背景","#2A0E3A"],["暗紅紫","漸層過渡","#5C1A3E"],["卡片暗紫","三欄區/Touch 區面板","#1A0A2E"],["霓虹桃粉","CTA/「Touch The Reality」","#FF2E8E"],["青藍霓虹","VR 眼罩光/配件","#00B4FF"],["桃紅深","訂閱區深粉卡","#C8265B"],["奶油白","訂閱輸入框暖底","#E8D8C4"]]
+  },
+  {
+    num: "16", name: "Wizarding World Hogwarts", reaction: "ref", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/6hF5bv7Dg",
+    why: "🌐 人物介紹 Landing 的完美範本 — Character Highlight 卡片 grid + View Profile 按鈕，配 AI 自產角色立刻能用",
+    use: "套用：Hero 主角 / 數字錨點條 / Character Grid（AI 生角色）/ 技能或服務 Grid / 4 分類色塊",
+    note: "又出現數字錨點（4/220+/1000+）— 你的審美穩定。四院色 #8B1A1A/#1A3A2E/#1E3A6B/#6B5A2E 可拿來做 4 類分組",
+    colors: [["深夜藍黑","主底","#0A0E1A"],["霍格華茲金","強調","#D4A847"],["暖橘","CTA","#E89B3C"],["米白","文字","#F0E6D2"]]
+  },
+  {
+    num: "20", name: "Blyce. — AI Thriller Cover", reaction: "love", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/6sABA1yRC", cookbook: 5,
+    why: "⭐⭐⭐⭐ AI 驚悚電影封面風 — 重點在橘紅機器人眼睛！透明 VR 鏡片 + 冷暖雙打光 + 完美電影海報排版（換文字就能用）",
+    use: "電影海報式 Landing 模板（左上品牌 / 右上 nav / 中下大標 / 底部 icon 列）；眼睛 prompt 可獨立複用做任何「AI 角色」題材",
+    note: "畫龍點睛 = 橘紅發光眼 + 十字瞄準光紋。完整眼睛 prompt + 顏色變化 + 排版分析見 cookbook 案例 05",
+    colors: [["深藍黑","主底","#050B1E"],["鈷藍","臉部冷光暈","#2B5C8A"],["火橘紅","眼睛/眼罩外框","#FF4500"],["暖橘","右側補光/品牌字","#F08858"],["深紅膚色","人物臉部","#6B2D24"],["紅黑暈","背景過渡","#1A0A12"],["灰白","nav 按鈕","#F0F0F0"]]
+  },
+  {
+    num: "21", name: "Profico — Iridescent Diamond", reaction: "ref", bucket: "🧩 元件", source: "Pinterest", url: "https://pin.it/28pIhgyeF", cookbook: 6,
+    why: "🧩 只取右下角的三角錐鑽石！想做：流光溢彩鑽石色 + 緩緩轉動 + 發亮 — 元件級裝飾物件",
+    use: "可放在 Landing Hero / 卡片角落當高級裝飾；旋轉動畫 + 多色折射光暈讓畫面有流動感",
+    note: "頁面其餘部分（Hero/卡片）不採用 — 背景太平淡。完整鑽石 prompt + 流光配色 + ⚡旋轉動畫見 cookbook 案例 06",
+    colors: [["純黑","主底","#0A0A0A"],["灰黑","Stats 面板","#1A1A1A"],["暗紫光暈","Hero 極光（原不夠飽和）","#4A2A6A"],["暗橘光暈","Hero 極光","#6A3A2A"],["暗青光暈","Hero 極光","#2A4A5A"],["紫粉漸層","卡片 02 底","#B040FF"],["透明白","鑽石本體（核心）","#F0F0F0"]]
+  },
+  {
+    num: "22", name: "Cyber Priestess — AI Video", reaction: "love", bucket: "💡 風格", source: "Pinterest (Video)", url: "https://pin.it/vlZZSn9uw", cookbook: 7,
+    why: "⭐⭐⭐⭐ 第一個影片收藏！藍螢光眼 + 紅螢光古文飄帶 + 流光劃過臉 + 運鏡技巧 — AI 生成影片的標竿（唯一缺點：臉紋身太密）",
+    use: "學 AI 影片生成的「運鏡 + 動態元素」技巧；可作為個人 Landing 的影片 Hero（autoplay loop）",
+    note: "MP4 已存 thumbnails/22.mp4 可回看研究運鏡。完整 image-to-video prompt + 運鏡拆解 + 5-10 秒流光技術見 40_Wiki/AI_動態影片/08_AI影片案例庫.md#案例 01",
+    colors: [["純黑","主底","#050505"],["電藍霓虹","眼睛發光","#00BFFF"],["桃紅霓虹","古文飄帶","#FF1B70"],["暗紅暈","紅光環境溢出","#4A0A1A"],["暖膚色","臉部","#C4A578"],["黑紋身","紋身線條","#1A1A1A"],["冰白","眼部高光點","#E8F0FF"]]
+  },
+  {
+    num: "23", name: "God's Descent — Cyberpunk Tokyo", reaction: "love", bucket: "💡 風格", source: "Pinterest (Video)", url: "https://pin.it/5hgErgTbG", cookbook: 8,
+    why: "⭐⭐⭐⭐⭐ 火影佩恩降臨木葉的視覺！主角懸浮城市上空 + crane up 運鏡 + 5 色霓虹東京街景。你的 BGM 連結直覺超準（Girei 戦慄）",
+    use: "AI 影片生成範本：神之視角 / 升降鏡頭 / 多色霓虹城市；可結合 BGM 做「降臨感」Hero 影片",
+    note: "MP4 已存 thumbnails/23.mp4 回看研究。完整 image-to-video prompt + 運鏡（crane up / pull-back）+ BGM 配對見 40_Wiki/AI_動態影片/08_AI影片案例庫.md#案例 02",
+    colors: [["深夜青","天空/大氣","#0A2A3F"],["桃粉霓虹","招牌 A","#FF1B85"],["電藍霓虹","招牌 B/路燈","#00B4FF"],["暖橘霓虹","招牌 C","#FF7A20"],["飽和黃","招牌 D","#FFD840"],["紅霓虹","招牌 E","#FF2A2A"],["暖白光","路面車燈","#FFE8A0"],["人物剪影","主角輪廓","#0A0610"]]
+  },
+  {
+    num: "24", name: "FITMINDAI — AI Fitness LP (堪用)", reaction: "ref", bucket: "🌐 Landing", source: "Dribbble (uiuximran9)", url: "",
+    why: "💪 採購清單 B2 健身 LP 首發樣本！堪用程度，需大量修改：手機框 / 按鈕 / sidebar / 底部介紹都要動",
+    use: "保留白底乾淨 + 數字錨點 + Hero 雙欄結構；改造方向：去手機框 / 照片漸層溶白 / 重設按鈕 / 加 sidebar / 加底部介紹",
+    note: "改造清單：① 去手機框架 ② 照片漸層往左渲染白底 ③ Start Training 按鈕重設計 ④ 頂部加 sidebar ⑤ 底部加文字介紹段。Dribbble 設計師：uiuximran9。繼續尋找更滿意樣本中。",
+    colors: [["純白","主底","#FFFFFF"],["米黃","副底/卡片","#F2EFE8"],["鮮黃","CTA Start Training","#F5C418"],["主黑","標題文字","#1A1A1A"],["中性灰","副文","#999999"],["暖膚色","人物","#C8A88A"],["槓鈴黑","啞鈴/槓","#2A2A2A"]]
+  },
+  {
+    num: "25", name: "Cover Flow Music Player", reaction: "ref", bucket: "🧩 元件", source: "Pinterest", url: "https://pin.it/3guhEYUzJ",
+    why: "🎵 個人音樂輪播電台專案的藍圖！Apple Music 風 Cover Flow + Glassmorphism + 動態背景色 — 三件套完整參考",
+    use: "技術核心：① CSS 3D Cover Flow（transform rotateY + perspective）② backdrop-filter: blur 毛玻璃 ③ JS 抓專輯主色染背景。排版：頂部搜尋 / 中央輪播 / 底部控制三段式",
+    note: "對應未來專案：個人音樂輪播電台。實作關鍵字：Cover Flow CSS / Glassmorphism / Web Audio API / Color Thief.js（抓圖片主色）。若進入專案階段，建議獨立做 plan 檔。",
+    colors: [["朦朧青藍","主背景（取自當前專輯）","#5B8A9C"],["玻璃白","毛玻璃面板","#C8D8E0"],["深海軍藍","中心卡 Stay","#1A2F3F"],["暗紅","Hoy Te Toca 卡","#6B1A1A"],["暗藍紫","側面卡片","#2A4060"],["純白","文字/icons","#FFFFFF"],["中性灰","副文/hint","#8696A0"]]
+  },
+  {
+    num: "26", name: "Crypto Treasure Chests × 4", reaction: "ref", bucket: "🧩 元件", source: "Pinterest", url: "https://pin.it/5wuNeCEGr",
+    why: "🎮 遊戲寶箱元件 4 件套（紫粉/紅橘/電藍/紫）— 之後做遊戲化網站 / 獎勵展示 / NFT 收藏可用",
+    use: "修改方向：① logo 換成自己的（Photoshop/Photopea）② 色相 hue-shift 加綠/金 ③ 套 CSS 旋轉發光做開封動畫（參考案例 06 鑽石）④ AI prompt 重生變體",
+    note: "AI prompt 範本（生新寶箱）：3D rendered sci-fi treasure chest, [color] neon glow accents, futuristic design with [logo] symbol on front, mechanical hinges, dark void background, ultra-realistic game asset render --ar 1:1。換 [color] 與 [logo] 即可批量產",
+    colors: [["深紫黑","共用主底","#2A0F2E"],["紫粉霓虹","寶箱1主光","#D040FF"],["紅霓虹","寶箱2主光","#FF2A2A"],["暖橘高光","寶箱2副","#FF7A20"],["電藍霓虹","寶箱3主光","#00B4FF"],["冰青高光","寶箱3副","#80E0F0"],["桃粉發光","寶箱4主光","#FF1B85"]]
+  },
+  {
+    num: "27", name: "IroncladFitness Hero — Jacob Di Domenico", reaction: "love", bucket: "🌐 Landing", source: "Dribbble", url: "https://dribbble.com/shots/26986408-Hero-Section-Fitness-Coach", cookbook: 7,
+    why: "🏷️ #個人健身網站候選 — 黑底圓角卡 Hero + 跑步人物 + 聊天框疊圖（服務視覺化）+ 5 星社證 + 底部 4 feature icon。99% 中性灰階只用一個深寶藍 #1A2BB8 做唯一強調色，高級感的教科書範例",
+    use: "個人健身網站 Hero 直接套版：黑色浮動圓角 Top Nav / 雙 CTA / 聊天框疊圖示意「線上 1-on-1」/ Feature icon 列。狀態：候選圖未鎖基準，累積到 5 張再考慮抽 Style Token",
+    note: "核心學習點 = 服務視覺化（用聊天框把抽象的「線上指導」演繹出來）。完整 prompt + 雙工具改寫 + 強調色變化 + landing page Top Nav 設計鐵則見 cookbook 案例 07",
+    colors: [["純黑","Top Nav / Hero 卡片底","#0A0B0B"],["淺灰白","主背景留白","#F3F3F3"],["中灰","副文字 / 分隔線","#404140"],["冷灰藍","健身房虛化背景","#B7C1C8"],["深寶藍","主 CTA / Feature icon（唯一強調色）","#1A2BB8"],["暖棕","人物膚色暈","#8C7C69"],["純白","Top Nav 文字 / 反白 CTA","#FFFFFF"]]
+  },
+  {
+    num: "29", name: "12TH MAN Movie Poster — Overhead Asphalt Text", reaction: "love", bucket: "💡 風格", source: "Pinterest", url: "https://pin.it/5eQtaOxJj", cookbook: 9,
+    why: "🎬 #電影海報 #俯瞰鏡頭 #地面文字 — 俯瞰瀝青路 75° + 大字噴漆印地面（隨路透視變形）+ 5 人剪影長陰影 + 雙側殘骸火焰。99% 灰黑 + 1 個火橘 = Awwwards 級高級感公式（同案例 07 公式）",
+    use: "電影海報視覺 / 影片分鏡俯瞰鏡頭模板 / 高張力 Hero。可換場景：健身房地板版 / 沙漠 / 雪地 / 都市天台。文字最關鍵句 = text follows the perspective of the road",
+    note: "完整三技術點拆解（俯瞰鏡頭關鍵字依強度 / 文字印地面核心句 / 戲劇長陰影）+ 雙工具 prompt + 5 場景變化 + 影片分鏡用法見 cookbook 案例 09",
+    colors: [["瀝青灰黑","主路面","#2A2A2A"],["暖白舊漆","地面文字 / 雙白線","#D8D0B8"],["純黑","人物剪影 / 長陰影","#0A0A0A"],["警示橘紅","火焰殘骸（唯一暖色強調）","#FF6B1F"],["苔綠","植被裂縫","#3A4A2A"],["鏽紅","廢棄車殼鐵鏈","#5A2A1A"],["冷藍灰","環境陰影暈","#3A4555"]]
+  },
+  {
+    num: "30", name: "Fluffy Pinterest P Logo (A 變體啟動圖)", reaction: "love", bucket: "🧸 毛絨", source: "Pinterest", url: "https://pin.it/63Ois1raF",
+    why: "🧸 #毛絨3D化 場景 E A 變體（輪廓毛絨）原型範例 — 紅毛絨 logo 本身被毛覆蓋。觸發 fluffy 場景的第一張代表作，2026 趨勢的標誌性視覺",
+    use: "可愛網站 hover state / 兒童 / 寵物 / 情人節（紅毛絨愛心同公式）/ 節慶限定 icon。原型用 ChatGPT Prompt 字樣標記",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#進階場景 E 毛絨 3D 化]] A 變體 5 槽位骨架 + Ready prompt（紅毛絨愛心 / 粉色 F / 毛絨啞鈴）",
+    colors: [["鮮紅毛絨","主色（毛覆蓋層）","#DC2626"],["白毛","P 字內毛色","#F5F5F5"],["淺灰","背景","#E5E5E5"],["深紅暗部","邊緣陰影","#8B1818"],["暖白高光","毛絨頂端反光","#FFF8F0"],["中灰","投射陰影","#B8B8B8"],["暗紅深紋","凹處陰影","#5A0E0E"]]
+  },
+  {
+    num: "31", name: "Fluffy Telegram Sphere (B 變體啟動圖)", reaction: "love", bucket: "🧸 毛絨", source: "Pinterest", url: "https://pin.it/4xgLDW68k",
+    why: "🧸 #毛絨3D化 場景 E B 變體（球體毛 + logo 嵌入）原型範例 — 圓球被毛覆蓋 + 紙飛機 logo 用白毛凸顯。藍粉漸層底色教科書",
+    use: "App icon 賀年版 / 通訊類品牌可愛化 / 兒童產品 / Discord 風 / 任何「圓形 logo + 想可愛化」的品牌",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#進階場景 E 毛絨 3D 化]] B 變體 + 4 種漸層背景配色（天藍粉紅/淺粉奶白/淡紫蜜桃/薄荷米黃）",
+    colors: [["天藍毛","球體主色","#4FB3E8"],["白毛","紙飛機 logo","#FAFAFA"],["天藍漸層","左側背景","#9DD5F2"],["粉紅漸層","右側背景","#F8C8D8"],["深藍暗部","球底陰影","#2A5C84"],["暖白高光","球頂反光","#FFF8F0"],["淺粉灰","球底投影","#D8B8C0"]]
+  },
+  {
+    num: "32", name: "Fluffy Animal Head (C 變體頭版啟動圖)", reaction: "love", bucket: "🧸 毛絨", source: "Pinterest", url: "https://pin.it/60fhmaKhS",
+    why: "🧸 #毛絨3D化 場景 E C 變體（毛絨動物頭）原型範例 — emoji 轉 3D 寫實絨毛漂浮頭。原 prompt：emoji → floating animal head with plush toy aesthetics",
+    use: "個人 IG 互動 / 可愛 landing page hover / 寵物網站 / 童書插畫。Ready prompt 含貓咪頭 + 水獺頭範例",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#進階場景 E 毛絨 3D 化]] C 變體頭版通用骨架 + 11 場景適合度標註",
+    colors: [["深灰主毛","頭頂耳朵","#4A4A4A"],["奶白色","臉部腹毛","#E8DCC8"],["暖卡其","臉頰耳內","#B8A088"],["深棕","鼻子","#3A2820"],["純黑","眼睛","#0A0A0A"],["純白","眼高光","#FAFAFA"],["淺奶白","背景","#F5F0E8"]]
+  },
+  {
+    num: "33", name: "Fluffy Otter Plushie ⭐ (你水獺主角原型)", reaction: "love", bucket: "🧸 毛絨", source: "Pinterest", url: "https://pin.it/2SBvc73WM",
+    why: "🦦 ⭐ **這是今熊水獺貼圖系列的視覺基準圖** — 場景 E C 變體擴充（全身版 huggable plushie）原型範例。原 prompt：emoji → ultra-cute soft plush toy designed to look like huggable children's stuffed animal",
+    use: "**今熊主角的視覺源頭**。對應 20_Project/個人貼圖系列.md 水獺 #01 主角的完整 prompt 與 8 動作清單。所有水獺貼圖以此圖毛色作為錨點",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#C 變體擴充 全身版 Full-body Plushie 可抱玩偶]] + 6 區毛色分區骨架 + 5 種毛色配方表（今熊已選定原型暖棕）+ 系列統一鐵則",
+    colors: [["暖棕主毛","背/頭/四肢","#A87858"],["香草奶油","腹/臉/嘴邊","#F0DCB8"],["桃粉腮紅","雙頰","#FFCFB0"],["巧克力棕","鼻子","#5A3A28"],["純黑","眼睛","#0A0A0A"],["純白","鬍鬚","#FAFAFA"],["暖米白","背景","#F8F0E8"]]
+  },
+  {
+    num: "34", name: "Black Cat 2.5D Pixar Cartoon Peeking", reaction: "love", bucket: "🎨 卡通", source: "Pinterest", url: "https://pin.it/4hyMJfZfD",
+    why: "🐈‍⬛ #2.5D卡通 場景 F 啟動圖 — 黑貓從黃色框探頭 + 大琥珀色眼睛 + 細毛紋。Pixar/Dreamworks 風 = 手機桌布級可愛。**圖生圖入門首選**（可上傳實際貓咪照片轉這風）",
+    use: "個人 IG 貼圖 / 手機桌布 / 部落格首圖 / 童書插畫。對應 20_Project/個人貼圖系列 黑貓 #02 主角",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#進階場景 F 2.5D 卡通插畫 Pixar-style Illustration]] + 5 風格變體（Pixar/貼紙/水彩/Ghibli/LINE）+ 圖生圖保留主體 SOP",
+    colors: [["黑毛","主體","#1A1A1A"],["琥珀橘","眼睛","#FFB347"],["亮黃","背景","#FFB81C"],["黑外框","邊框","#0A0A0A"],["粉紅","鼻子","#FFB0B0"],["純白","眼高光 + 鬍鬚","#FFFFFF"],["暗黃","背景陰影","#B8860B"]]
+  },
+  {
+    num: "35", name: "Anthropomorphic Panda Office Worker 🐼", reaction: "love", bucket: "🐼 擬人化", source: "Pinterest", url: "https://pin.it/758wVhunw",
+    why: "🐼 #寫實擬人化 場景 G 啟動圖 — 熊貓社畜上班族（眼鏡 + 黑高領 + 工作證 + 冰咖啡 + 螢幕設計稿 + 無奈眼神）。**meme 共鳴度爆炸**：情境精準性 99% = 最強傳播力公式",
+    use: "病毒級 IG/Threads 貼文 / 個人品牌角色 / Reels 影片主角 / 產品 Landing 吉祥物。**寫實毛皮 ≠ 場景 E plush 也 ≠ 場景 F 卡通**",
+    note: "完整方法論：[[13_進階Prompt技巧手冊_Techniques#進階場景 G 寫實擬人化動物 Realistic Anthropomorphic Animals]] + 5 ready prompt 含水獺健身教練 + 水獺 NSCA 焦慮版（你本人）+ 系列化策略（一隻獺三身分）",
+    colors: [["純黑","熊貓黑毛","#0A0A0A"],["純白","熊貓白毛","#F5F5F5"],["黑灰","眼鏡框","#2A2A2A"],["透明棕","冰咖啡","#4A2818"],["螢幕灰白","背景監視器","#C8C8C8"],["暖橘","螢幕設計稿","#FF9854"],["米白","辦公室牆","#E8E4DC"]]
+  },
+  {
+    num: "28", name: "Luxury Organic Restaurant UI — Fruit Bowls", reaction: "love", bucket: "🌐 Landing", source: "Pinterest", url: "https://pin.it/2MJ3wwB37", cookbook: 8,
+    why: "🏷️ #個人網站候選 #運動營養 #營養科普 — 深灰墨底襯多碗鮮豔水果俯拍（橘/草莓/藍莓/黑莓/檸檬）+ 暖橘 CTA + 4 section 垂直堆疊。色彩反轉設計教科書：同版型換底色 = 兩個品牌定位",
+    use: "個人網站「運動營養 / 科普基礎營養」區段直接套版。雙版本：A 深底奢華（高端定位）/ B 乳白底+葉綠（科普親民）。今熊感官判讀很準 — 直覺想「換淺底」其實就是色彩反轉設計",
+    note: "完整雙版本 prompt（深底奢華 + 乳白科普）+ 5 種色彩變化（依水果種類反轉底色）+ 食物攝影避雷 + 色彩反轉設計學習點見 cookbook 案例 08",
+    colors: [["深灰墨","主背景（A 版）","#1F2226"],["乳白","主背景（B 版反轉）","#FAF7F0"],["鮮橘","A 版 CTA / 柑橘","#FF7A1F"],["葉綠","B 版 CTA / 強調","#4A8B3A"],["莓果紅","草莓覆盆莓","#C8243A"],["藍莓紫藍","藍莓","#3A4B7C"],["葉脈綠","薄荷裝飾","#5B7A3A"]]
+  },
+];
+
+const grid = document.getElementById("grid");
+const toast = document.getElementById("toast");
+data.sort((a, b) => parseInt(a.num) - parseInt(b.num));
+document.getElementById("count").textContent = data.length;
+
+function reactionLabel(r) {
+  return r === "love" ? "❤️ 心動" : (r === "ref" ? "可參考" : "備用");
+}
+
+function buildFallback(item) {
+  const c = item.colors.map(x => x[2]);
+  const gradient = c.length >= 3
+    ? `linear-gradient(135deg, ${c[0]} 0%, ${c[1]} 40%, ${c[2]} 80%${c[3] ? `, ${c[3]} 100%` : ''})`
+    : `linear-gradient(135deg, ${c[0]}, ${c[c.length-1]})`;
+  return `
+    <div class="thumb-fallback" style="background: ${gradient}">
+      <div class="fb-name">${item.name}</div>
+      <div class="fb-hint">放 thumbnails/${item.num}.jpg 自動替換</div>
+    </div>
+  `;
+}
+
+data.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.reaction = item.reaction;
+  card.dataset.bucket = item.bucket;
+
+  const swatchCols = item.colors.length === 3 ? "cols-3" : "";
+  const urlBtn = item.url
+    ? `<a href="${item.url}" target="_blank" class="btn primary">↗ 看原作品</a>`
+    : `<span class="btn disabled">尚無連結</span>`;
+
+  card.innerHTML = `
+    <div class="thumb-wrap">
+      ${buildFallback(item)}
+      <img class="thumb-img" alt="${item.name}"
+           data-num="${item.num}"
+           style="display:none"
+           onload="this.style.display='block'; this.previousElementSibling.style.display='none'"
+           src="thumbnails/${item.num}.jpg"
+           onerror="this.onerror=null; this.src='thumbnails/${item.num}.png';
+                    this.onerror=function(){this.onerror=null; this.src='thumbnails/${item.num}.webp';
+                    this.onerror=function(){this.remove();}}">
+      <div class="thumb-badge">
+        <span class="badge ${item.reaction}">${reactionLabel(item.reaction)}</span>
+        <span class="badge">${item.bucket}</span>
+        ${item.cookbook ? `<span class="badge cookbook">📓 案例 ${String(item.cookbook).padStart(2,'0')}</span>` : ''}
+      </div>
+      <div class="thumb-num">#${item.num}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-head">
+        <div class="card-title">${item.name}</div>
+        <div class="card-source">${item.source}</div>
+      </div>
+      <div class="why ${item.reaction}">
+        <div class="why-label">為什麼存</div>
+        <div class="why-text">${item.why}</div>
+      </div>
+      <div class="swatches ${swatchCols}">
+        ${item.colors.map(c => `
+          <div class="swatch" data-hex="${c[2]}" title="${c[0]}｜${c[1]}｜${c[2]}">
+            <div class="block" style="background:${c[2]}"></div>
+            <div class="cn">${c[0]}</div>
+            <div class="hex">${c[2]}</div>
+          </div>
+        `).join("")}
+      </div>
+      <div class="actions">
+        ${urlBtn}
+        <span class="btn" onclick="copyPalette(this, ${JSON.stringify(item.colors.map(c=>c[2])).replace(/"/g,'&quot;')})">複製整組</span>
+        ${item.cookbook ? `<span class="btn cookbook-btn" data-case="${item.cookbook}">📓 Cookbook 案例 ${String(item.cookbook).padStart(2,'0')}</span>` : ''}
+      </div>
+      <div class="detail">
+        <div class="row"><b>用途：</b>${item.use}</div>
+        <div class="row"><b>備註：</b>${item.note}</div>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove("show"), 1300);
+}
+
+document.querySelectorAll(".swatch").forEach(sw => {
+  sw.addEventListener("click", () => {
+    const hex = sw.dataset.hex;
+    navigator.clipboard.writeText(hex).then(() => {
+      showToast(`已複製 ${hex}`);
+      sw.classList.add("copied");
+      setTimeout(() => sw.classList.remove("copied"), 1200);
+    });
+  });
+});
+
+function copyPalette(el, hexArr) {
+  const text = hexArr.join(", ");
+  navigator.clipboard.writeText(text).then(() => showToast(`已複製整組 (${hexArr.length} 色)`));
+}
+
+// === cookbook button: copy file path ===
+document.querySelectorAll(".cookbook-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const path = "/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_靜態視覺/08_生成圖片_Prompt_案例庫.md";
+    navigator.clipboard.writeText(path).then(() => {
+      const caseNum = String(btn.dataset.case).padStart(2,'0');
+      showToast(`已複製 Cookbook 路徑　→ Antigravity 按 ⌘P 貼上 → 搜「案例 ${caseNum}」`);
+    });
+  });
+});
+
+// === quick-links: copy path to clipboard ===
+document.querySelectorAll(".quick-links a[data-path]").forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    const path = a.dataset.path;
+    navigator.clipboard.writeText(path).then(() => {
+      const filename = path.split("/").pop();
+      showToast(`已複製：${filename}　到 Finder 按 ⌘⇧G 貼上`);
+    });
+  });
+});
+
+// === filter logic ===
+const filters = document.querySelectorAll(".chip");
+filters.forEach(chip => {
+  chip.addEventListener("click", () => {
+    filters.forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    const f = chip.dataset.filter;
+    document.querySelectorAll(".card").forEach(card => {
+      const show = f === "all" || card.dataset.reaction === f || card.dataset.bucket === f;
+      card.style.display = show ? "" : "none";
+    });
+  });
+});
+</script>
+</body>
+</html>
