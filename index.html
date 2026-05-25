@@ -493,10 +493,46 @@
     line-height: 1.8;
   }
   footer h3 { font-size: 13px; color: #999; margin-bottom: 8px; font-weight: 600; }
+
+  /* === light theme === */
+  body.light {
+    --bg: #f5f2ee;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0ede8;
+    --border: #ddd8d0;
+    --text: #1a1a1a;
+    --text-dim: #666;
+    --text-mute: #999;
+  }
+  body.light .why { background: linear-gradient(135deg, rgba(0,0,0,0.03), rgba(0,0,0,0.01)); }
+  body.light .swatch .block { border-color: rgba(0,0,0,0.08); }
+  body.light .keywords { background: #ede9e3; }
+  body.light .checklist { background: linear-gradient(180deg, #ede9e3, #e8e4de); }
+
+  /* === theme toggle btn === */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 200;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--text-dim); }
 </style>
 </head>
 <body>
 
+<button class="theme-toggle" id="themeToggle">🌙 深色</button>
 <header>
   <img src="otter.png" class="otter" alt="獺獺">
   <div class="header-content">
@@ -965,6 +1001,14 @@ document.querySelectorAll(".keywords code").forEach(el => {
   el.addEventListener("click", () => {
     navigator.clipboard.writeText(el.textContent.trim()).then(() => showToast(`已複製：${el.textContent.trim()}`));
   });
+});
+
+// === theme toggle ===
+const themeToggle = document.getElementById("themeToggle");
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  const isLight = document.body.classList.contains("light");
+  themeToggle.textContent = isLight ? "🌙 深色" : "☀️ 淺色";
 });
 
 // === filter logic ===
