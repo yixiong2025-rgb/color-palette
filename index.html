@@ -26,6 +26,20 @@
     margin: 0 auto 32px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  header .otter {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  header .header-content {
+    flex: 1;
   }
   header h1 {
     font-size: 22px;
@@ -442,6 +456,8 @@
 <body>
 
 <header>
+  <img src="otter.jpg" class="otter" alt="獺獺">
+  <div class="header-content">
   <h1>風格收藏｜色票總覽</h1>
   <div class="meta">2026-05-20 建立　｜　<span id="count">—</span> 個作品　｜　縮圖放 <code style="color:#888">thumbnails/NN.jpg</code> 自動載入</div>
   <div class="legend">
@@ -457,6 +473,7 @@
     <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/03_角色一致性_Character_Consistency.md">🎭 角色一致性</a>
     <a href="#" data-path="/Users/jinxiong/Library/CloudStorage/GoogleDrive-yixiong2025@gmail.com/我的雲端硬碟/Antigravity_VibeProject/JinOS/40_Wiki/AI_動態影片/02_劇本轉譯器_Story_to_Prompt.md">✏️ 劇本轉 Prompt</a>
     <span style="color:#666;font-size:11px;align-self:center">↑ 點擊複製路徑，到 Finder 按 ⌘⇧G 貼上跳轉（Safari 沙箱限制）</span>
+  </div>
   </div>
 </header>
 
